@@ -1,0 +1,39 @@
+
+
+  +--------------------------------------------------------------------------+
+  |                                                                          |
+  |   eisfuchsLabor / graulicht / textlab                                    |
+  |   http://eisfuchslabor.de/graulicht/                                     |
+  |                                                                          |
+  |   developed and (c) 2011 by Raphael "eiszfuchs" Pohl                     |
+  |                                                                          |
+  +--------------------------------------------------------------------------+
+
+  THIS PROJECT USES THIRD-PARTY PRE-COMPILED PACKAGES.
+
+
+
+  mikechambers / as3corelib
+
+  An ActionScript 3 Library that contains a number of classes and utilities
+  for working with ActionScript? 3. These include classes for MD5 and SHA 1
+  hashing, Image encoders, and JSON serialization as well as general String,
+  Number and Date APIs.
+
+  Code is released under a BSD License:
+  http://www.opensource.org/licenses/bsd-license.php
+
+  Copyright (c) 2008, Adobe Systems Incorporated
+  All rights reserved.
+
+
+
+  danro / tweenman-as3
+
+  TweenMan AS3 tweening library for Flash & Flex
+
+  TweenMan requires fl.motion.Color, which comes compiled in the TweenMan swc.
+
+  For updates and examples, visit: http://www.tweenman.com
+  Author: Dan Rogers - dan@danro.net
+
