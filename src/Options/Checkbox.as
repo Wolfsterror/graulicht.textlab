@@ -69,6 +69,8 @@ package Options {
 		}
 		
 		private function draw():void {
+			// TODO: make the shape more like a tick, instead of a square
+			
 			shape.graphics.clear();
 			shape.graphics.beginFill(Theme.back_color);
 			shape.graphics.drawRect(0, 3, Main.grid - 6, Main.grid - 6);
