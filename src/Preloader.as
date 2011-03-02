@@ -26,7 +26,7 @@ package {
 			addEventListener(Event.ENTER_FRAME, checkFrame);
 			loaderInfo.addEventListener(ProgressEvent.PROGRESS, progress);
 			loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioError);
-			
+
 			// ==>> SHOW LOADER <<==
 			
 			// set theme first
