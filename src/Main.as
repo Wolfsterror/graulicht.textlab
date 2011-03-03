@@ -200,7 +200,11 @@ package {
 			resize_listener(); // redraw stage (and background)
 			
 			if (e.target != this) {
-				// no action needed?
+				// BUG: when here IS NO return, then importing a machine will not select the new processors.
+				return;
+				// BUG: when here IS return, then releasing above a processor will not work.
+				
+				// we keep the release for now until we find a solution. selecting new processors is important
 			}
 			
 			// initialize positions
@@ -219,7 +223,7 @@ package {
 				// check for every processor whether it is completely inside the selection rectangle
 				puppet = puppets[i];
 				if(puppet.x >= topleft.x && (puppet.x + puppet._width * Main.grid) <= bottomright.x
-				   && puppet.y >= topleft.y && (puppet.y + puppet._height * Main.grid) <= bottomright.y) {
+					&& puppet.y >= topleft.y && (puppet.y + puppet._height * Main.grid) <= bottomright.y) {
 					puppet.select();
 				} else {
 					puppet.deselect();
