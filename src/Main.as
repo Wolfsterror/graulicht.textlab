@@ -171,6 +171,12 @@ package {
 					// Ctrl + T
 					addChild(new ThemeSelector()); // add Theme Selection dialog to stage
 				}
+			} else if (e.keyCode == 32) {
+				// Space
+				if (e.ctrlKey) {
+					// Ctrl + Space
+					select_all(); // select all
+				}
 			}
 		}
 		
@@ -235,11 +241,22 @@ package {
 		 * Clears the selection of processors
 		 */
 		private function deselect_all():void {
+			select_all(false);
+		}
+		
+		/**
+		 * Selects all processors on stage
+		 */
+		private function select_all(select:Boolean = true):void {
 			var i:int;
 			var puppet:Processor;
 			for (i = 0; i < puppets.length; i++) {
 				puppet = puppets[i];
-				puppet.deselect();
+				if(select) {
+					puppet.select();
+				} else {
+					puppet.deselect();
+				}
 			}
 		}
 		

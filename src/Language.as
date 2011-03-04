@@ -17,7 +17,7 @@ package  {
 			switch(_lang) {
 				case "de":
 					words = {
-						'welcome': "Willkommen im textlab v2!\r\r- Drücke Strg+S, um Deine Schöpfung in ein speicherbares Format umzuwandeln.\r- Mit Strg+L kannst Du vorher gespeicherte Schöpfungen wieder einlesen.\r- Mit Strg+T schaltest Du das Theme um.\r\rViel Spaß! -- eiszfuchs",
+						'welcome': "Willkommen im textlab v2!\r\r- Drücke Strg+S, um Deine Schöpfung in ein speicherbares Format umzuwandeln.\r- Mit Strg+L kannst Du vorher gespeicherte Schöpfungen wieder einlesen.\r- Mit Strg+T schaltest Du das Theme um.\r- Strg+Leertaste wählt alle Prozessoren aus.\r\rViel Spaß! -- eiszfuchs",
 						'close': "Schließen",
 						'in': "ein",
 						'out': "aus",
@@ -64,7 +64,7 @@ package  {
 					break;
 				case "en":
 					words = {
-						'welcome': "Welcome to textlab v2!\r\r- Press Ctrl+S to convert your machine into a copyable format.\r- With Ctrl+L, you can read in a converted machine.\r- Press Ctrl+T to switch between themes.\r\rHave fun! -- eiszfuchs",
+						'welcome': "Welcome to textlab v2!\r\r- Press Ctrl+S to convert your machine into a copyable format.\r- With Ctrl+L, you can read in a converted machine.\r- Press Ctrl+T to switch between themes.\r- Ctrl+Space selects all processors.\r\rHave fun! -- eiszfuchs",
 						'close': "Close",
 						'in': "in",
 						'out': "out",
