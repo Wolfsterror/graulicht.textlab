@@ -170,7 +170,7 @@ package  {
 			rearrange();
 			_values[_name] = _value;
 			
-			if(fire) {
+			if(fire && _controller.output_count > 0) {
 				// burn!
 				Main.fire();
 			}
