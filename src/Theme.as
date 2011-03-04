@@ -11,10 +11,11 @@ package  {
 	 */
 	public class Theme {
 		
+		public static var canvas_color:uint		= 0x4C4C4C;
 		public static var back_color:uint		= 0x4C4C4C;
 		public static var hover_color:uint		= 0x333333;
 		public static var front_color:uint		= 0x262626;
-		public static var text_color:uint		= 0x262626;
+		public static var text_color:uint		= 0xBFBFBF;
 		public static var main_color:uint		= 0x3060BF;
 		public static var highlight_color:uint	= 0x5C8AE5;
 		
@@ -26,7 +27,7 @@ package  {
 		}
 		
 		public static function random():void {
-			var id:int = Math.floor(Math.random() * 4);
+			var id:int = Math.floor(Math.random() * 5);
 			switch(id) {
 				case 1:
 					theme_highcontrast();
@@ -35,10 +36,13 @@ package  {
 					theme_eisfuchslabor();
 					break;
 				case 3:
-					theme_lime();
+					theme_dark_lime();
+					break;
+				case 4:
+					theme_pinklover();
 					break;
 				default:
-					theme_classic();
+					theme_default();
 			}
 		}
 		
@@ -50,6 +54,7 @@ package  {
 		 * 
 		 */
 		public static function theme_eisfuchslabor():void {
+			canvas_color    = 0xf2f2f2;
 			back_color      = 0xf2f2f2;
 			hover_color     = 0xD9D9D9;
 			front_color     = 0xB2B2B2;
@@ -71,6 +76,7 @@ package  {
 		 * @author eiszfuchs
 		 */
 		public static function theme_graulicht_textlab():void {
+			canvas_color    = 0x4C4C4C;	// hsv(  0,   0,  30)
 			back_color      = 0x4C4C4C;	// hsv(  0,   0,  30)
 			hover_color     = 0x333333;	// hsv(  0,   0,  20)
 			front_color     = 0x262626;	// hsv(  0,   0,  15)
@@ -79,6 +85,7 @@ package  {
 			highlight_color = 0x5C8AE5;	// hsv(220,  60,  90)
 		}
 		public static function theme_graulicht_paintlab():void {
+			canvas_color    = 0x4C4C4C;	// hsv(  0,   0,  30)
 			back_color      = 0x4C4C4C;	// hsv(  0,   0,  30)
 			hover_color     = 0x333333;	// hsv(  0,   0,  20)
 			front_color     = 0x262626;	// hsv(  0,   0,  15)
@@ -94,7 +101,8 @@ package  {
 		 * @author eiszfuchs
 		 * 
 		 */
-		public static function theme_lime():void {
+		public static function theme_dark_lime():void {
+			canvas_color    = 0x92998A;	// hsv( 88,  10,  60)
 			back_color      = 0x92998A;	// hsv( 88,  10,  60)
 			hover_color     = 0x666652;	// hsv( 60,  20,  40)
 			front_color     = 0x494C45;	// hsv( 88,  10,  30)
@@ -111,12 +119,30 @@ package  {
 		 * 
 		 */
 		public static function theme_highcontrast():void {
-			back_color      = 0xFFFFFF;	// hsv(  0,   0, 100)
+			canvas_color    = 0xFFFFFF;	// hsv(  0,   0, 100)
+			back_color      = 0x000000;	// hsv(  0,   0,   0)
 			hover_color     = 0x7F7F7F;	// hsv(  0,   0,  50)
-			front_color     = 0x000000;	// hsv(  0,   0,   0)
-			text_color      = 0x000000;	// hsv(  0,   0,   0)
+			front_color     = 0xFFFFFF;	// hsv(  0,   0, 100)
+			text_color      = 0xFFFFFF;	// hsv(  0,   0, 100)
 			main_color      = 0x7F7FFF;	// hsv(240,  50, 100)
 			highlight_color = 0x0000FF;	// hsv(240, 100, 100)
+		}
+		
+		/**
+		 * 
+		 * == Pink Lover theme
+		 * 
+		 * @author eiszfuchs
+		 * 
+		 */
+		public static function theme_pinklover():void {
+			canvas_color    = 0xF2EBEE;
+			back_color      = 0xD9D9D9;
+			hover_color     = 0x4C4C4C;
+			front_color     = 0x7F7F7F;
+			text_color      = 0x52122C;
+			main_color      = 0xFF3388;
+			highlight_color = 0x3497FA;
 		}
 	}
 }

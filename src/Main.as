@@ -277,7 +277,7 @@ package {
 			this.graphics.clear();
 			this.graphics.lineStyle();
 			
-			this.graphics.beginFill(Theme.back_color);
+			this.graphics.beginFill(Theme.canvas_color);
 			this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			// here comes the noise!
 			this.graphics.beginBitmapFill(background_noisy.bitmapData);

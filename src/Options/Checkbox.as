@@ -4,6 +4,7 @@ package Options {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.filters.DropShadowFilter;
 	
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
@@ -56,9 +57,10 @@ package Options {
 			label_field.y = 1;
 			
 			this.addChild(shape);
-			this.addChild(tick);
 			shape.addEventListener(MouseEvent.CLICK, change);
 			shape.buttonMode = true;
+			
+			this.addChild(tick);
 			tick.mouseChildren = false;
 			tick.mouseEnabled = false;
 			
@@ -103,6 +105,7 @@ package Options {
 			tick.graphics.lineTo(4, 5+margin);
 			tick.graphics.lineTo(2, 3+margin);
 			tick.graphics.endFill();
+			tick.filters = [ new DropShadowFilter(0, 90, Theme.front_color, 1, 2, 2, 4) ];
 			
 			// BUG: tick only draws right for Main.grid = 16.
 			

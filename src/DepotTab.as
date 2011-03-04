@@ -28,7 +28,6 @@ package  {
 			label_format.leftMargin = label_format.rightMargin = 4;
 			
 			label_field = new TextField;
-			label_field.textColor = Theme.front_color
 			label_field.embedFonts = true;
 			label_field.selectable = false;
 			label_field.autoSize = TextFieldAutoSize.LEFT;
@@ -50,11 +49,11 @@ package  {
 		}
 		private function draw():void {
 			this.graphics.clear();
-			this.graphics.beginFill(Theme.back_color);
+			this.graphics.beginFill(Theme.canvas_color);
 			this.graphics.drawRect(0, 0, label_field.width, Main.grid + 4);
 			this.graphics.endFill();
 			
-			label_field.textColor = Theme.front_color
+			label_field.textColor = Theme.highlight_color;
 		}
 		
 		private function click_listener(e:Event = null):void {
