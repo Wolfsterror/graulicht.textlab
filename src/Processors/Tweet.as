@@ -30,13 +30,13 @@ package Processors {
 					Main.fire();
 					options.set_value("loading", false);
 				});
-				tweet_loader.load(new URLRequest("http://eisfuchslabor.de/graulicht/proxy.php?url=http://api.twitter.com/1/statuses/user_timeline/eiszfuchs.json?count=1&include_rts=true"));
+				tweet_loader.load(new URLRequest("http://eisfuchslabor.de/graulicht/proxy.php?url=http://api.twitter.com/1/statuses/user_timeline/eiszfuchs.json?include_rts=true%26count=1"));
 				options.set_value("loading", true);
 			}}, { name: "loading", label: Language.words['is_loading'], type: "lamp" } ];
 			
 			_width = 6;
 			_name = Language.words['tweet_quote'];
-			_preview = "TQ @eiszfuchs: ";
+			_preview = "@eiszfuchs: ";
 			
 			initialize();
 		}
