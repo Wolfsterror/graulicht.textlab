@@ -21,7 +21,7 @@ package  {
 			draw();
 			
 			add_group(Language.words['base'],		[Source, Trace]);
-			add_group(Language.words['makeup'],		[Comment, X]);
+			add_group(Language.words['decorative'],	[Comment, X]);
 			add_group(Language.words['simple'],		[Minuscules, Majuscules, Reverse, Shift, Marquee]);
 			add_group(Language.words['tools'],		[Counter, Repeat, Append, Cross, Void]);
 			add_group(Language.words['complex'],	[Join, CharReplace, WordReplace]);
