@@ -8,7 +8,7 @@ package Processors {
 			input_count = 0;
 			output_count = 1;
 			
-			_options = [ { name: "input", label: Language.words['input'], type: "input" } ];
+			_options = [ { name: "input", type: "input" } ];
 			
 			_width = 16;
 			_name = Language.words['source'];

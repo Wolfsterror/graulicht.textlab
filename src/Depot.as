@@ -24,7 +24,7 @@ package  {
 			add_group(Language.words['makeup'],		[Comment, X]);
 			add_group(Language.words['simple'],		[Minuscules, Majuscules, Reverse, Shift, Marquee]);
 			add_group(Language.words['tools'],		[Counter, Repeat, Append, Cross, Void]);
-			add_group(Language.words['complex'],	[Join, Replace]);
+			add_group(Language.words['complex'],	[Join, CharReplace, WordReplace]);
 			add_group(Language.words['toys'],		[Tweet]);
 			
 			rearrange();

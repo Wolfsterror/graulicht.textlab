@@ -8,7 +8,10 @@ package Processors {
 			input_count = 1;
 			output_count = 1;
 			
-			_options = [ { name: "offset", label: Language.words['offset'], type: "spinner", "min": 0, "max": 25 } ];
+			_options = [
+				{ type: "label", text: Language.words['offset'] },
+				{ name: "offset", type: "spinner", "min": 0, "max": 25 }
+			];
 			
 			_width = 7;
 			_name = Language.words['shifter'];

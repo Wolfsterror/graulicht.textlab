@@ -8,7 +8,10 @@ package Processors {
 			input_count = 1;
 			output_count = 1;
 			
-			_options = [ { name: "offset", label: Language.words['offset'], type: "spinner", "min": -1000, "max": 1000, "value": 0 } ];
+			_options = [
+				{ type: "label", text: Language.words['offset'] },
+				{ name: "offset", type: "spinner", "min": -1000, "max": 1000, "value": 0 }
+			];
 			
 			_width = 7;
 			_name = Language.words['marquee'];

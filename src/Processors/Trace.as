@@ -8,7 +8,7 @@ package Processors {
 			input_count = 1;
 			output_count = 0;
 			
-			_options = [ { name: "output", label: Language.words['output'], type: "text" } ];
+			_options = [ { name: "output", type: "text" } ];
 			
 			_width = 16;
 			_name = Language.words['tracer'];

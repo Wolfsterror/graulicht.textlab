@@ -3,6 +3,7 @@ package Options {
 	import flash.display.MovieClip;
 	
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.AntiAliasType;
@@ -15,10 +16,11 @@ package Options {
 		private var label_format:TextFormat;
 		private var label_field:TextField;
 		
-		public function Label(_label:String) {
+		public function Label(_label:String, _connector:ProcessorOptions = null) {
 			label_format = new TextFormat;
 			label_format.font = "raffix.simple.upcase";
 			label_format.size = 8;
+			
 			label_field = new TextField;
 			label_field.textColor = Theme.back_color;
 			label_field.embedFonts = true;
@@ -26,6 +28,13 @@ package Options {
 			label_field.autoSize = TextFieldAutoSize.LEFT;
 			label_field.defaultTextFormat = this.label_format;
 			label_field.text = _label;
+			
+			if (_connector) {
+				label_field.type = TextFieldType.DYNAMIC;
+				label_field.width = _connector.maxwidth;
+				label_field.wordWrap = true;
+			}
+			
 			this.addChild(label_field);
 		}
 		public function redraw():void {

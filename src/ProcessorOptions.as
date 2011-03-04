@@ -11,7 +11,9 @@ package  {
 		private var _values:Object = { };
 		
 		public  var maxwidth:int;
-		private var sidepadding:int = 6;
+		private var sidepadding:int = 4;
+		
+		private var settings:Array = new Array;
 		
 		private var options:Array = new Array;
 		private var _controller:Processor;
@@ -20,6 +22,7 @@ package  {
 		
 		public function ProcessorOptions(_options:Array, controller:Processor) {
 			_controller = controller;
+			settings = _options; // save it for later
 			
 			maxwidth = (_controller._width - (_controller.output_count > 0?1:0) - (_controller.input_count > 0?1:0)) * Main.grid - 1 - sidepadding * 2;
 			
@@ -38,28 +41,22 @@ package  {
 					case 'input':
 						_values[_options[i].name] = new String;
 						
-						label = new Label(_options[i].label);
-						options.push(label);
 						input = new Input(this, _options[i].name);
 						options.push(input);
 						
 						displays[_options[i].name] = input;
 						
-						addChild(label);
 						addChild(input);
 						
 						break;
 					case 'text':
 						_values[_options[i].name] = new String;
 						
-						label = new Label(_options[i].label);
-						options.push(label);
 						text = new Text(this, _values[_options[i].name]);
 						options.push(text);
 						
 						displays[_options[i].name] = text;
 						
-						addChild(label);
 						addChild(text);
 						
 						break;
@@ -82,14 +79,11 @@ package  {
 							_values[_options[i].name] = _options[i].min;
 						}
 						
-						label = new Label(_options[i].label);
-						options.push(label);
 						spinner = new Spinner(this, _options[i].name, _options[i].min, _options[i].max, _options[i].value);
 						options.push(spinner);
 						
 						displays[_options[i].name] = spinner;
 						
-						addChild(label);
 						addChild(spinner);
 						
 						break;
@@ -118,6 +112,13 @@ package  {
 						addChild(lamp);
 						
 						break;
+					case 'label':
+						label = new Label(_options[i].text, this);
+						options.push(label);
+						
+						addChild(label);
+						
+						break;
 					default:
 						// skip
 				}
@@ -129,6 +130,12 @@ package  {
 			var i:int;
 			var gutter:int = -1;
 			var _y:int = Main.grid;
+			
+			if (settings.length > 0) {
+				if (settings[0].type == "text" || settings[0].type == "input") {
+					_y += sidepadding / 2;
+				}
+			}
 			
 			for (i = 0; i < options.length; i++) {
 				options[i].y = _y;

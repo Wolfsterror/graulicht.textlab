@@ -366,7 +366,8 @@ package {
 					case 'Marquee':			puppet = new Marquee;		break;
 					case 'Minuscules':		puppet = new Minuscules;	break;
 					case 'Repeat':			puppet = new Repeat;		break;
-					case 'Replace':			puppet = new Replace;		break;
+					case 'CharReplace':		puppet = new CharReplace;	break;
+					case 'WordReplace':		puppet = new WordReplace;	break;
 					case 'Reverse':			puppet = new Reverse;		break;
 					case 'Shift': 			puppet = new Shift;			break;
 					case 'Source':			puppet = new Source;		break;
@@ -374,6 +375,9 @@ package {
 					case 'Tweet':			puppet = new Tweet;			break;
 					case 'Void':			puppet = new Void;			break;
 					case 'X':				puppet = new X;				break;
+					
+					case 'Replace':			puppet = new CharReplace;	break; // backwards-compatibility
+					
 					// TODO: what to do when there is an unknown type?
 					default:				puppet = null;
 				}

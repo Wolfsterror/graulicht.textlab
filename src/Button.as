@@ -50,8 +50,6 @@ package {
 			text_field.defaultTextFormat = this.text_format;
 			text_field.text = _label;
 			addChild(text_field);
-			text_field.x = padding;
-			text_field.y = padding + margin;
 			
 			draw();
 		}
@@ -61,6 +59,9 @@ package {
 		}
 		
 		public function draw():void {
+			text_field.x = padding;
+			text_field.y = padding + margin;
+			
 			button_shape.graphics.clear();
 			button_shape.graphics.beginFill(Theme.front_color);
 			button_shape.graphics.drawRect(0, 0, 1, margin);

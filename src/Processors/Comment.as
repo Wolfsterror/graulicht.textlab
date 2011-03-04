@@ -9,7 +9,7 @@ package Processors {
 			input_count = 0;
 			output_count = 0;
 			
-			_options = [ { name: "comment", label: Language.words['comment'], type: "input" } ];
+			_options = [ { name: "comment", type: "input" } ];
 			
 			_width = 10;
 			_name = Language.words['comment'];

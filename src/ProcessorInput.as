@@ -32,7 +32,7 @@ package  {
 		
 		public var _controller:Processor;
 		private var shape:Sprite = new Sprite;
-		private var error_shape:Shape;
+		private var error_shape:Shape = new Shape;
 		
 		private var label_format:TextFormat;
 		private var label_field:TextField;
@@ -94,10 +94,9 @@ package  {
 			shape.graphics.drawCircle((Main.grid-1) / 2, (Main.grid-1) / 2, 5);
 			shape.graphics.endFill();
 			
-			error_shape = new Shape;
-			
 			var size:int = 9;
 			
+			error_shape.graphics.clear();
 			error_shape.graphics.beginFill(Theme.highlight_color);
 			error_shape.graphics.moveTo( 0, 2);
 			error_shape.graphics.lineTo( 2, 0);
@@ -124,6 +123,8 @@ package  {
 			
 			// text field colors
 			label_field.textColor = Theme.front_color;
+			
+			refresh();
 		}
 		
 		private function mouseclick_listener(e:Event):void {
@@ -132,12 +133,14 @@ package  {
 		
 		public function set_error(_error:Boolean = false):void {
 			error = _error;
-			
+			refresh();
+		}
+		
+		private function refresh():void {
+			TweenMan.removeTweens(error_shape);
 			if (error) {
-				TweenMan.removeTweens(error_shape);
 				TweenMan.addTween(error_shape, { alpha: 1, time: Main.animation_duration } );
 			} else {
-				TweenMan.removeTweens(error_shape);
 				TweenMan.addTween(error_shape, { alpha: 0, time: Main.animation_duration } );
 			}
 		}

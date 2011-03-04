@@ -4,9 +4,9 @@ package Processors {
 	 * @author Raphael Pohl
 	 */
 	
-	public class Replace extends Processor {
+	public class CharReplace extends Processor {
 		
-		public function Replace() {
+		public function CharReplace() {
 			input_count = 3;
 			output_count = 1;
 			
@@ -18,7 +18,7 @@ package Processors {
 			];
 			
 			_width = 8;
-			_name = Language.words['replace'];
+			_name = Language.words['char_replace'];
 			_preview = "T |e->a| xt";
 			
 			initialize();

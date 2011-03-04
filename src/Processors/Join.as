@@ -13,8 +13,10 @@ package Processors {
 			_options = [
 				{ name: "zipper", label: Language.words['zipper'], type: "checkbox" },
 				{ type: "seperator" },
-				{ name: "take1", label: Language.words['take_chars'] + "X", type: "spinner", "min": 1, "max": 100 },
-				{ name: "take2", label: Language.words['take_chars'] + "Y", type: "spinner", "min": 1, "max": 100 }
+				{ type: "label", text: Language.words['take_chars'] + "X" },
+				{ name: "take1", type: "spinner", "min": 1, "max": 100 },
+				{ type: "label", text: Language.words['take_chars'] + "Y" },
+				{ name: "take2", type: "spinner", "min": 1, "max": 100 }
 			];
 			
 			_width = 9;

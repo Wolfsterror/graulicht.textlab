@@ -8,7 +8,7 @@ package Processors {
 			input_count = 1;
 			output_count = 0;
 			
-			_options = [ { name: "length", label: Language.words['length'], type: "text" } ];
+			_options = [ { name: "length", type: "text" } ];
 			
 			_width = 6;
 			_name = Language.words['counter'];
