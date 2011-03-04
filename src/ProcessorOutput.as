@@ -7,6 +7,7 @@ package  {
 	import flash.events.Event;
 	
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.AntiAliasType;
@@ -43,8 +44,10 @@ package  {
 			label_format.font = "raffix.simple.upcase";
 			label_format.size = 8;
 			label_field = new TextField;
+			label_field.type = TextFieldType.DYNAMIC;
 			label_field.textColor = Theme.front_color;
 			label_field.embedFonts = true;
+			label_field.mouseEnabled = false;
 			label_field.selectable = false;
 			label_field.autoSize = TextFieldAutoSize.LEFT;
 			label_field.defaultTextFormat = this.label_format;
@@ -52,11 +55,16 @@ package  {
 			
 			draw();
 			this.addChild(shape);
-			this.addChild(label_field);
+			
+			if(_label != "" && _label != " ") {
+				this.addChild(label_field);
+			}
 			
 			shape.addEventListener(MouseEvent.MOUSE_DOWN, mousedown_listener);
 			shape.addEventListener(MouseEvent.MOUSE_UP, mouseup_listener);
 			shape.buttonMode = true;
+			
+			this.mouseEnabled = false; // work-around for click-through on I/O-labels
 			
 			align();
 		}

@@ -51,6 +51,8 @@ package  {
 			
 			this.alpha = 0;
 			TweenMan.addTween(this, { alpha: 1, time: Main.animation_duration, ease: "easeInOutQuart" } );
+			
+			this.mouseEnabled = false; // work-around for click-through on I/O-labels
 		}
 		
 		public function process():void {

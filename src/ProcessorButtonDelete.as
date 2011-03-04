@@ -68,7 +68,17 @@ package  {
 		}
 		
 		private function mouseclick_listener(e:Event):void {
-			Main.master.addChild(new Afterlife(_controller));
+			if (_controller.selected) {
+				// delete all selected processors
+				var walkers:Array = Main.get_selected();
+				var i:int;
+				
+				for (i = 0; i < walkers.length; i++) {
+					Main.master.addChild(new Afterlife(walkers[i]));
+				}
+			} else {
+				Main.master.addChild(new Afterlife(_controller));
+			}
 		}
 		
 		private function mouseover_listener(e:Event):void {

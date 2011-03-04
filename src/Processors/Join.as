@@ -19,7 +19,7 @@ package Processors {
 				{ name: "take2", type: "spinner", "min": 1, "max": 100 }
 			];
 			
-			_width = 9;
+			_width = 8;
 			_height = 3;
 			_name = Language.words['join'];
 			_preview = "AABAABAAB";
