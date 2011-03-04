@@ -9,6 +9,8 @@ package  {
 	import flash.text.TextFormat;
 	import flash.text.AntiAliasType;
 	
+	import flash.filters.DropShadowFilter;
+	
 	/**
 	 * @author Raphael Pohl
 	 */
@@ -51,9 +53,21 @@ package  {
 			this.graphics.clear();
 			this.graphics.beginFill(Theme.canvas_color);
 			this.graphics.drawRect(0, 0, label_field.width, Main.grid + 4);
+			
+			if(Theme.use_noise) {
+				this.graphics.beginBitmapFill(Main.master.background_noisy);
+				this.graphics.drawRect(0, 0, label_field.width, Main.grid + 4);
+			}
+			
 			this.graphics.endFill();
 			
 			label_field.textColor = Theme.highlight_color;
+			label_field.filters = [
+				new DropShadowFilter(1,   0, Theme.back_color, 0.85, 0, 0),
+				new DropShadowFilter(1,  90, Theme.back_color, 0.85, 0, 0),
+				new DropShadowFilter(1, 180, Theme.back_color, 0.85, 0, 0),
+				new DropShadowFilter(1, 270, Theme.back_color, 0.85, 0, 0)
+			];
 		}
 		
 		private function click_listener(e:Event = null):void {

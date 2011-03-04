@@ -99,7 +99,13 @@ package  {
 			
 			button_shape.graphics.beginFill(Theme.canvas_color);
 			button_shape.graphics.drawRect(0, 0, Main.grid * _width - 1 + border*2, Main.grid * 2 - 1 + border*2);
+			
+			if(Theme.use_noise) {
+				button_shape.graphics.beginBitmapFill(Main.master.background_noisy);
+				button_shape.graphics.drawRect(0, 0, Main.grid * _width - 1 + border*2, Main.grid * 2 - 1 + border*2);
+			}
 			button_shape.graphics.endFill();
+			
 			button_shape.graphics.beginFill(Theme.back_color);
 			button_shape.graphics.drawRect(border-1, border-1, Main.grid * _width + 1, Main.grid * 2 + 1);
 			button_shape.graphics.endFill();

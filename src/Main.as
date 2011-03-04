@@ -42,7 +42,6 @@
  */
 
 package {
-	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Sprite;
@@ -96,8 +95,7 @@ package {
 		[Embed(source = 'assets/fonts/raffix_simple_upcase.ttf', embedAsCFF = "false", fontFamily = 'raffix.simple.upcase')] private static const FONT_RAFFIX_SIMPLE_UPCASE: Class;
 		[Embed(source = 'assets/fonts/eiszfuchs_simple_regular.ttf', embedAsCFF = "false", fontFamily = 'eiszfuchs.simple.regular')] private static const FONT_EISZFUCHS_SIMPLE_REGULAR: Class;
 		
-		[Embed(source = 'assets/bg_noise.png')] private static const BACKGROUND_NOISE: Class;	// it's the famous noise of eisfuchslabor.de!
-		private var background_noisy:Bitmap = new Bitmap();										// it's the noisy bitmap that will be repeated
+		public var background_noisy:BitmapData; // it's the noisy bitmap that will be repeated
 		
 		// wait for the content to be loaded
 		public function Main():void {
@@ -112,10 +110,11 @@ package {
 			// ==>> ENTRY POINT <<==
 			
 			Language.set(); // initialize words
-			background_noisy = new BACKGROUND_NOISE();
 			
 			// überclass _root :)
 			master = this;
+			
+			redraw_noise();
 			
 			// when resizing the stage, everything should be organized.
 			stage.addEventListener(Event.RESIZE, resize_listener);
@@ -254,6 +253,8 @@ package {
 				puppet = puppets[i];
 				if(select) {
 					puppet.select();
+					
+					// FIXME: fake processors are selected, too!
 				} else {
 					puppet.deselect();
 				}
@@ -296,9 +297,12 @@ package {
 			
 			this.graphics.beginFill(Theme.canvas_color);
 			this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			// here comes the noise!
-			this.graphics.beginBitmapFill(background_noisy.bitmapData);
-			this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			
+			if(Theme.use_noise) {
+				// here comes the noise!
+				this.graphics.beginBitmapFill(background_noisy);
+				this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			}
 			
 			this.graphics.endFill();
 			
@@ -478,6 +482,8 @@ package {
 		 * This is usually called when changing themes.
 		 */
 		public static function redraw():void {
+			Main.master.redraw_noise();
+			
 			Main.master.resize_listener();
 			depot.redraw();
 			curtain.redraw();
@@ -489,6 +495,24 @@ package {
 				puppet.redraw();
 			}
 			puppet.draw_connections();
+		}
+		
+		/**
+		 * Redraws the noise.
+		 */
+		public function redraw_noise():void {
+			if(Theme.use_noise) {
+				background_noisy = new BitmapData(Main.grid * 16, Main.grid * 16, true, 0x00000000);
+				var x:int;
+				var y:int;
+				var c:uint;
+				for (y = 0; y < background_noisy.height; y++) {
+					for (x = 0; x < background_noisy.width; x++) {
+						c = ((0xff * Math.random() * Theme.noise_alpha) << 24) | Theme.noise_color;
+						background_noisy.setPixel32(x, y, c);
+					}
+				}
+			}
 		}
 		
 		/**
