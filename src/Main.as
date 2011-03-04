@@ -251,10 +251,8 @@ package {
 			var puppet:Processor;
 			for (i = 0; i < puppets.length; i++) {
 				puppet = puppets[i];
-				if(select) {
+				if(select && puppet.parent == Main.master) {
 					puppet.select();
-					
-					// FIXME: fake processors are selected, too!
 				} else {
 					puppet.deselect();
 				}
