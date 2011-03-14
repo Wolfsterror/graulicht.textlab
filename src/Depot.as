@@ -18,6 +18,8 @@ package  {
 		public var i:int = 0;
 		
 		public function Depot() {
+			y = Main.grid * 2;
+			
 			draw();
 			
 			add_group(Language.words['base'],		[Source, Trace]);
@@ -57,11 +59,15 @@ package  {
 			draw();
 		}
 		
+		public function resize():void {
+			draw();
+		}
+		
 		private function draw():void {
 			this.graphics.beginFill(Theme.front_color);
-			this.graphics.drawRect(0, 0, 3000, Main.grid * 4);
-			this.graphics.drawRect(0, Main.grid * 3 - 5, 3000, 1);
-			this.graphics.drawRect(0, Main.grid * 4 + 1, 3000, 1);
+			this.graphics.drawRect(0, 0, Main.master.stage.stageWidth, Main.grid * 4);
+			this.graphics.drawRect(0, Main.grid * 3 - 5, Main.master.stage.stageWidth, 1);
+			this.graphics.drawRect(0, Main.grid * 4 + 1, Main.master.stage.stageWidth, 1);
 			this.graphics.endFill();
 		}
 		

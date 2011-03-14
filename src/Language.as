@@ -61,7 +61,9 @@ package  {
 						'tweet': "Tweet",
 						'is_loading': "läd ...",
 						'import': "Importieren",
-						'take_chars': "Zeichen aus "
+						'take_chars': "Zeichen aus ",
+						'login': "einloggen",
+						'register': "registrieren"
 					};
 					break;
 				case "en":
@@ -110,7 +112,9 @@ package  {
 						'tweet': "tweet",
 						'is_loading': "loading ...",
 						'import': "import",
-						'take_chars': "chars from "
+						'take_chars': "chars from ",
+						'login': "log in",
+						'register': "register"
 					};
 					break;
 				default:

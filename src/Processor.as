@@ -170,7 +170,7 @@ package  {
 			cy = this.y;
 			
 			cx = Math.max(cx, Main.grid); // clipped < 0
-			cy = Math.max(cy, Main.grid * 5); // clipped < 0
+			cy = Math.max(cy, Main.grid * 7); // clipped < 0
 			
 			cx = Math.min(cx, Main.master.stage.stageWidth - (_width + 1) * Main.grid); // clipped > 0
 			cy = Math.min(cy, Main.master.stage.stageHeight - (_height + 1) * Main.grid); // clipped > 0

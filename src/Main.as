@@ -47,6 +47,7 @@ package {
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import Social.Userbar;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -72,9 +73,14 @@ package {
 		public static const animation_duration:Number = 0.25;	// how long (seconds) the animations should last
 		public static const grid:int = 16;						// this aligns everything
 		
+		// use these for social features
+		public static const project_name:String = "textlab";
+		public static const social_home:String = "profiles/";
+		
 		public static var master:Main;							// "master of puppets", reference to Main (_root workaround)
 																// TODO: is this really a nice way?
 		public static var depot:Depot;							// reference to processor menu
+		public static var userbar:Userbar;						// reference to social userbar
 		public static var curtain:Curtain;						// reference to curtain for dialogs (makes everythin unclickable)
 		public static var puppets:Array = new Array;			// array with all processor references on stage
 		public static var counter:int = 0;						// unique counter to identify processors (this will come in handy for hash generation)
@@ -130,6 +136,10 @@ package {
 			// create menu or else the user cannot do anything
 			depot = new Depot;
 			addChild(depot);
+			
+			// create the bar for user-specific content, such as presets or avatar
+			userbar = new Userbar;
+			addChild(userbar);
 			
 			// create the curtain that prevents clicking on anything but dialogs
 			curtain = new Curtain;
@@ -306,6 +316,10 @@ package {
 			
 			// resize the curtain for dialogs
 			curtain.resize();
+			
+			// resize everything else that matters
+			depot.resize();
+			userbar.resize();
 			
 			// BUG: Processors will remain outside stage when resizing has finished
 		}
@@ -485,6 +499,7 @@ package {
 			Main.master.resize_listener();
 			depot.redraw();
 			curtain.redraw();
+			userbar.redraw();
 			
 			var i:int;
 			var puppet:Processor;
