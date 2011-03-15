@@ -127,9 +127,9 @@ package Social {
 			variables.nick = field_name.text;
 			variables.password = MD5.hash(field_password.text);
 			
-			register_loader.addEventListener(Event.COMPLETE, onRegistrationLoaded);
+			register_loader.addEventListener(Event.COMPLETE, onLoginLoaded);
 			
-			function onRegistrationLoaded(e:Event):void {
+			function onLoginLoaded(e:Event):void {
 				var object:Object = JSON.decode(e.target.data);
 				if (object.status) {
 					Main.userbar.user = new User(object.user.name, object.user.email, object.user.pass);

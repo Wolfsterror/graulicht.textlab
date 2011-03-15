@@ -4,6 +4,10 @@ package Social {
 	import flash.display.Sprite;
 	import com.adobe.crypto.MD5;
 	
+	import flash.system.LoaderContext;
+	import flash.system.SecurityDomain;
+	import flash.system.ApplicationDomain;
+	
 	import flash.display.Bitmap;
 	
 	import flash.display.Loader;
@@ -72,8 +76,23 @@ package Social {
 			
 			var hash:String = MD5.hash(Main.userbar.user.email);
 			
-			var imageRequest:URLRequest = new URLRequest("http://www.gravatar.com/avatar/" + hash + "?s=" + size);
-			imageLoader.load(imageRequest);
+			/*
+			 * d may stand for:
+			 * 
+			 * # mm: (mystery-man) a simple, cartoon-style silhouetted outline of a person (does not vary by email hash)
+			 * # identicon: a geometric pattern based on an email hash
+			 * # monsterid: a generated 'monster' with different colors, faces, etc
+			 * # wavatar: generated faces with differing features and backgrounds
+			 * # retro: awesome generated, 8-bit arcade-style pixelated faces
+			 */
+			var imageRequest:URLRequest = new URLRequest("http://www.gravatar.com/avatar/" + hash + "?s=" + size + "&d=retro");
+			// we take "retro", because it says that it is awesome
+			
+			var context:LoaderContext = new LoaderContext();
+			context.checkPolicyFile = true;
+			// context.securityDomain = SecurityDomain.currentDomain;
+			context.applicationDomain = ApplicationDomain.currentDomain;
+			imageLoader.load(imageRequest, context);
 		}
 		
 		private function draw():void {
