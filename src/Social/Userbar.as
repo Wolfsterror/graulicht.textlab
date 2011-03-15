@@ -20,15 +20,14 @@ package Social {
 			avatar = new Avatar;
 			addChild(avatar);
 			
-			buttons.push(new BarButton("Registrieren", function():void { Main.master.addChild(new Register()); } ));
-			buttons.push(new BarButton("Einloggen", function():void { Main.master.addChild(new Login());; } ));
-			for (var i:* in buttons) {
-				addChild(buttons[i]);
-			}
-			
 			draw();
-			rearrange();
+			
+			buttons.push(new BarButton(Language.words['register'], function():void { Main.master.addChild(new Register()); } ));
+			buttons.push(new BarButton(Language.words['login'], function():void { Main.master.addChild(new Login()); } ));
+			create_buttons(buttons);
 		}
+		
+		// TODO: draw, redraw, rearrange and stuff looks a bit messy.
 		
 		public function redraw():void {
 			avatar.redraw();
@@ -66,7 +65,7 @@ package Social {
 			var r_x:int = avatar.width + 8;
 			for (var i:* in buttons) {
 				buttons[i].x = r_x;
-				r_x += buttons[i].width - Main.grid / 2;
+				r_x += buttons[i].width;
 			}
 		}
 		
@@ -80,6 +79,20 @@ package Social {
 			}
 			buttons = new Array;
 			rearrange();
+		}
+		
+		private function create_buttons(buttons:Array):void {
+			for (var i:* in buttons) {
+				addChild(buttons[i]);
+			}
+			rearrange();
+		}
+		
+		public function login_buttons():void {
+			clear_buttons();
+			buttons.push(new BarButton(Language.words['load'], function():void { Main.master.addChild(new Load); } ));
+			buttons.push(new BarButton(Language.words['save'], function():void { Main.master.addChild(new Save); } ));
+			create_buttons(buttons);
 		}
 	}
 }

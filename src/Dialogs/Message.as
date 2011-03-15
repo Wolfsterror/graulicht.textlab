@@ -38,7 +38,7 @@ package Dialogs {
 			text_format.rightMargin = 2;
 			text_field = new TextField;
 			text_field.type = TextFieldType.DYNAMIC;
-			text_field.width = Main.master.stage.stageWidth * 0.25;
+			text_field.width = Main.master.stage.stageWidth * 0.35;
 			text_field.wordWrap = true;
 			text_field.textColor = Theme.text_color;
 			text_field.embedFonts = true;

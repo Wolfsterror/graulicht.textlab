@@ -18,7 +18,7 @@ package  {
 				case "de":
 					words = {
 						'welcome': "Willkommen im textlab v2!\r\r- Drücke Strg+S, um Deine Schöpfung in ein speicherbares Format umzuwandeln.\r- Mit Strg+L kannst Du vorher gespeicherte Schöpfungen wieder einlesen.\r- Mit Strg+T schaltest Du das Theme um.\r- Strg+Leertaste wählt alle Prozessoren aus.\r\rViel Spaß! -- eiszfuchs",
-						'close': "Schließen",
+						'close': "schließen",
 						'in': "ein",
 						'out': "aus",
 						'needle': "Nadel",
@@ -44,7 +44,7 @@ package  {
 						'void': "Nichts",
 						'x': "X",
 						'tweet_quote': "Tweet-Zitat",
-						'refresh': "Aktualisieren",
+						'refresh': "aktualisieren",
 						'output': "Ausgabe",
 						'input': "Eingabe",
 						'chars': "Zeichen",
@@ -63,7 +63,17 @@ package  {
 						'import': "Importieren",
 						'take_chars': "Zeichen aus ",
 						'login': "einloggen",
-						'register': "registrieren"
+						'register': "registrieren",
+						'save': "sichern",
+						'save_help': "Tipp' einen Namen für die Datei ein.",
+						'load': "laden",
+						'load_help': "Lade zuvor gespeicherte Kreationen.",
+						'register_help': "Du musst Dich registrieren, um die Online-Inhalte nutzen zu können.\rUm Dich zu registrieren, gib' einfach Deinen Namen, Deine E-Mail-Adresse und ein Passwort an.\rFertig!",
+						'login_help': "Log' Dich mit Deinem Benutzerkonto ein.\rDu hast noch kein Benutzerkonto? Erstelle eines!",
+						'no_login': "nicht eingeloggt",
+						'error_msg': "Es gab einen Fehler.",
+						'bad_login': "Passwort oder Benutzername falsch.",
+						'user_created': "Benutzer wurde angelegt."
 					};
 					break;
 				case "en":
@@ -114,7 +124,17 @@ package  {
 						'import': "import",
 						'take_chars': "chars from ",
 						'login': "log in",
-						'register': "register"
+						'register': "register",
+						'save': "save",
+						'save_help': "Type a filename for your creation.",
+						'load': "load",
+						'load_help': "You can load your creations here.",
+						'register_help': "You have to register to use the online-features.\rJust type your nick name, your e-mail address and a password.\rDone!",
+						'login_help': "Log in with your account. Don't have an account? Register one!",
+						'no_login': "no login",
+						'error_msg': "An error has occurred.",
+						'bad_login': "Bad login / password!",
+						'user_created': "User has been created."
 					};
 					break;
 				default:

@@ -45,12 +45,17 @@ package {
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	import flash.events.KeyboardEvent;
+	
 	import flash.geom.Point;
+	
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+
 	import Social.Userbar;
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.KeyboardEvent;
 	
 	import Dialogs.*;
 	import Processors.*;
@@ -350,98 +355,110 @@ package {
 		 * @param	_json	JSON-encoded string
 		 * @return			whether the function was successful
 		 */
-		public static function load(_json:String):Boolean {
-			try {
-				var object:Object = new Object;
-				object = JSON.decode(_json);
-			} catch (e:JSONParseError) {
-				// MEGA FAIL
-				return false;
-			} 
-			// TODO: check whether the provided object is a saved machine
-			
-			var mind:Object = new Object; // stores references to processors by their hash according to JSON object
-			
-			var i:int; // puppet
-			var o:*; // option
-			
-			Main.master.deselect_all(); // we will select all new processors
-			
-			// processor creation
-			
-			var puppet:Processor;
-			for (i = 0; i < object.processors.length; i++) {
-				// look for processor type and create new instance according to it
-				switch(object.processors[i].type) {
-					case 'Append':			puppet = new Append;		break;
-					case 'Comment':			puppet = new Comment;		break;
-					case 'Counter':			puppet = new Counter;		break;
-					case 'Cross':			puppet = new Cross;			break;
-					case 'Join':			puppet = new Join;			break;
-					case 'Majuscules':		puppet = new Majuscules;	break;
-					case 'Marquee':			puppet = new Marquee;		break;
-					case 'Minuscules':		puppet = new Minuscules;	break;
-					case 'Repeat':			puppet = new Repeat;		break;
-					case 'CharReplace':		puppet = new CharReplace;	break;
-					case 'WordReplace':		puppet = new WordReplace;	break;
-					case 'Reverse':			puppet = new Reverse;		break;
-					case 'Shift': 			puppet = new Shift;			break;
-					case 'Source':			puppet = new Source;		break;
-					case 'Trace':			puppet = new Trace;			break;
-					case 'Tweet':			puppet = new Tweet;			break;
-					case 'Void':			puppet = new Void;			break;
-					case 'X':				puppet = new X;				break;
-					
-					case 'Replace':			puppet = new CharReplace;	break; // backwards-compatibility
-					
-					// TODO: what to do when there is an unknown type?
-					default:				puppet = null;
-				}
+		public static function load(_json:String, isfilename:Boolean = false):Boolean {
+			if (isfilename) {
+				// _json is a filename, load first
+				var file_loader:URLLoader = new URLLoader();
+				file_loader.addEventListener(Event.COMPLETE, onFileLoaded);
 				
-				if (puppet) {
-					// if puppet is an instance
-					
-					// set position of new puppet accourding to JSON object
-					puppet.x = object.processors[i].x;
-					puppet.y = object.processors[i].y;
-					
-					for (o in object.processors[i].options) {
-						// set options (checkboxes, etc)
-						puppet.options.set_value(o, object.processors[i].options[o]);
+				function onFileLoaded(e:Event):void {
+					Main.load(e.target.data, false);
+				}
+				file_loader.load(new URLRequest(_json));
+			} else {
+				try {
+					var object:Object = new Object;
+					object = JSON.decode(_json);
+				} catch (e:JSONParseError) {
+					// MEGA FAIL
+					return false;
+				} 
+				// TODO: check whether the provided object is a saved machine
+				
+				var mind:Object = new Object; // stores references to processors by their hash according to JSON object
+				
+				var i:int; // puppet
+				var o:*; // option
+				
+				Main.master.deselect_all(); // we will select all new processors
+				
+				// processor creation
+				
+				var puppet:Processor;
+				for (i = 0; i < object.processors.length; i++) {
+					// look for processor type and create new instance according to it
+					switch(object.processors[i].type) {
+						case 'Append':			puppet = new Append;		break;
+						case 'Comment':			puppet = new Comment;		break;
+						case 'Counter':			puppet = new Counter;		break;
+						case 'Cross':			puppet = new Cross;			break;
+						case 'Join':			puppet = new Join;			break;
+						case 'Majuscules':		puppet = new Majuscules;	break;
+						case 'Marquee':			puppet = new Marquee;		break;
+						case 'Minuscules':		puppet = new Minuscules;	break;
+						case 'Repeat':			puppet = new Repeat;		break;
+						case 'CharReplace':		puppet = new CharReplace;	break;
+						case 'WordReplace':		puppet = new WordReplace;	break;
+						case 'Reverse':			puppet = new Reverse;		break;
+						case 'Shift': 			puppet = new Shift;			break;
+						case 'Source':			puppet = new Source;		break;
+						case 'Trace':			puppet = new Trace;			break;
+						case 'Tweet':			puppet = new Tweet;			break;
+						case 'Void':			puppet = new Void;			break;
+						case 'X':				puppet = new X;				break;
+						
+						case 'Replace':			puppet = new CharReplace;	break; // backwards-compatibility
+						
+						// TODO: what to do when there is an unknown type?
+						default:				puppet = null;
 					}
-					// keep instance in mind, we need that later for connections
-					mind[object.processors[i].id] = puppet;
-					Main.master.addChild(puppet);
-					// select all new puppets
-					puppet.select();
+					
+					if (puppet) {
+						// if puppet is an instance
+						
+						// set position of new puppet accourding to JSON object
+						puppet.x = object.processors[i].x;
+						puppet.y = object.processors[i].y;
+						
+						for (o in object.processors[i].options) {
+							// set options (checkboxes, etc)
+							puppet.options.set_value(o, object.processors[i].options[o]);
+						}
+						// keep instance in mind, we need that later for connections
+						mind[object.processors[i].id] = puppet;
+						Main.master.addChild(puppet);
+						// select all new puppets
+						puppet.select();
+					}
 				}
-			}
-			
-			// now for the connections
-			
-			var sender:Processor;
-			var output_id:int;
-			var receiver:Processor;
-			var input_id:int;
-			
-			for (i = 0; i < object.connections.length; i++) {
-				// go through defined connections
 				
-				// get sender and receiver
-				sender = mind[object.connections[i].sender[0]];
-				receiver = mind[object.connections[i].receiver[0]];
-				output_id = object.connections[i].sender[1];
-				input_id = object.connections[i].receiver[1];
+				// now for the connections
 				
-				// create instances of inputs / outputs
-				var the_output:ProcessorOutput = sender.outputs[output_id] as ProcessorOutput;
-				var the_input:ProcessorInput = receiver.inputs[input_id] as ProcessorInput;
+				var sender:Processor;
+				var output_id:int;
+				var receiver:Processor;
+				var input_id:int;
 				
-				// create a new connection
-				the_input._connection = new Connection(the_output, the_input);
-				the_output._connections.push(the_input._connection);
-				
-				sender.draw_connections(); // draw connection
+				for (i = 0; i < object.connections.length; i++) {
+					// go through defined connections
+					
+					// get sender and receiver
+					sender = mind[object.connections[i].sender[0]];
+					receiver = mind[object.connections[i].receiver[0]];
+					output_id = object.connections[i].sender[1];
+					input_id = object.connections[i].receiver[1];
+					
+					// create instances of inputs / outputs
+					var the_output:ProcessorOutput = sender.outputs[output_id] as ProcessorOutput;
+					var the_input:ProcessorInput = receiver.inputs[input_id] as ProcessorInput;
+					
+					// create a new connection
+					the_input._connection = new Connection(the_output, the_input);
+					the_output._connections.push(the_input._connection);
+					
+					sender.draw_connections(); // draw connection
+				}
+				return true;
 			}
 			return true;
 		}

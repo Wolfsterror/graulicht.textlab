@@ -13,7 +13,7 @@
 	if(file_exists($filename)) {
 		$data = array("status" => false);
 	} else {
-		mkdir("$project/$nick", 0777, true);
+		mkdir("$project/$nick/creations", 0777, true);
 
 		touch($filename);
 		$user_data = array(

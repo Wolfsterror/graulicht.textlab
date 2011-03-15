@@ -56,7 +56,7 @@ package Social {
 			field_description.defaultTextFormat = field_name.defaultTextFormat = field_password.defaultTextFormat = field_format;
 			field_description.autoSize = TextFieldAutoSize.LEFT;
 			
-			field_description.text = "Du musst Dich registrieren, um die Online-Inhalte nutzen zu können.\rUm Dich zu registrieren, gib' einfach Deinen Namen, Deine E-Mail-Adresse und ein Passwort an.\rFertig!";
+			field_description.text = Language.words['login_help'];
 			
 			field_name.width = field_password.width = field_description.width;
 			field_name.type = field_password.type = TextFieldType.INPUT;
@@ -134,10 +134,10 @@ package Social {
 				if (object.status) {
 					Main.userbar.user = new User(object.user.name, object.user.email, object.user.pass);
 					Main.userbar.redraw()
-					Main.userbar.clear_buttons();
+					Main.userbar.login_buttons();
 					fade(); 
 				} else {
-					Main.master.addChild(new Message("Benutzername oder Kennwort falsch."));
+					Main.master.addChild(new Message(Language.words['bad_login']));
 				}
 			}
 			var request:URLRequest = new URLRequest(Main.social_home + "check_user.php");

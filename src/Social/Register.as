@@ -58,7 +58,7 @@ package Social {
 			field_description.defaultTextFormat = field_email.defaultTextFormat = field_name.defaultTextFormat = field_password.defaultTextFormat = field_format;
 			field_description.autoSize = TextFieldAutoSize.LEFT;
 			
-			field_description.text = "Du musst Dich registrieren, um die Online-Inhalte nutzen zu können.\rUm Dich zu registrieren, gib' einfach Deinen Namen, Deine E-Mail-Adresse und ein Passwort an.\rFertig!";
+			field_description.text = Language.words['register_help'];
 			
 			field_email.width = field_name.width = field_password.width = field_description.width;
 			field_email.type = field_name.type = field_password.type = TextFieldType.INPUT;
@@ -71,6 +71,13 @@ package Social {
 			field_name.text = "Nick";
 			field_email.text = "nick@home.com";
 			field_password.text = "1234";
+			
+			field_name.restrict = "A-Za-z0-9";
+			field_email.restrict = "a-z0-9@.\\-_";
+			
+			field_name.maxChars = 24;
+			field_email.maxChars = 128;
+			field_password.maxChars = 64;
 			
 			this.addChild(field_description);
 			this.addChild(field_name);
@@ -138,14 +145,14 @@ package Social {
 			function onRegistrationLoaded(e:Event):void {
 				var object:Object = JSON.decode(e.target.data);
 				if (object.status) {
-					Main.master.addChild(new Message("Alles ist gut.", function():void {
+					Main.master.addChild(new Message(Language.words['user_created'], function():void {
 						Main.userbar.user = new User(object.user.name, object.user.email, object.user.pass);
 						Main.userbar.redraw()
-						Main.userbar.clear_buttons();
+						Main.userbar.login_buttons();
 						fade(); 
 					}));
 				} else {
-					Main.master.addChild(new Message("Es gab einen Fehler."));
+					Main.master.addChild(new Message(Language.words['error_msg']));
 				}
 			}
 			var request:URLRequest = new URLRequest(Main.social_home + "add_user.php");

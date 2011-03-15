@@ -27,6 +27,9 @@ package Social {
 		private var textfield_format:TextFormat;
 		private var textfield:TextField;
 		
+		private var image:Bitmap = new Bitmap;
+		private var loaded:Boolean = false;
+		
 		public function Avatar() {
 			x = y = ((Main.grid * 2) - size) / 2;
 			
@@ -40,7 +43,7 @@ package Social {
 			this.textfield.selectable = false;
 			this.textfield.autoSize = TextFieldAutoSize.LEFT;
 			this.textfield.defaultTextFormat = this.textfield_format;
-			this.textfield.text = "nicht eingeloggt";
+			this.textfield.text = Language.words['no_login'];
 			this.addChild(this.textfield);
 			
 			textfield.x = size + 6;
@@ -52,7 +55,7 @@ package Social {
 		
 		public function redraw():void {
 			draw();
-			if (Main.userbar.user.email) {
+			if (Main.userbar.user.email && !loaded) {
 				load();
 				this.textfield.text = Main.userbar.user.name;
 			}
@@ -62,8 +65,9 @@ package Social {
 			
 			imageLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
 			function onComplete(e:Event):void {
-				var image:Bitmap = new Bitmap(e.target.content.bitmapData);
+				image = new Bitmap(e.target.content.bitmapData);
 				addChild(image);
+				loaded = true;
 			}
 			
 			var hash:String = MD5.hash(Main.userbar.user.email);

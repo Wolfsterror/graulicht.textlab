@@ -14,7 +14,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'14.03.2011'</value>
+      <value>'15.03.2011'</value>
     </define>
     <source-path append="true">
       <path-element>F:\checkout\git\graulicht.textlab\src</path-element>
