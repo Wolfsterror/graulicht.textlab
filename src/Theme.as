@@ -20,10 +20,38 @@ package  {
 		public static var highlight_color:uint	= 0x5C8AE5;
 		
 		public static var noise_color:uint		= 0x5C8AE5;
-		public static var noise_alpha:Number	= 0.05;
+		public static var noise_alpha:Number	= 0.07;
+		public static var noise_contrast:Number	= 0.5;
 		public static var use_noise:Boolean		= true;
 		
 		public function Theme() {
+		}
+		
+		/**
+		 * 
+		 * Adds contrast to a number
+		 * 
+		 * @param	_num		0..1	value
+		 * @param	_contrast	-1..1	contrast
+		 */
+		public static function contrast(_num:Number, _contrast:Number = 0):Number {
+			if (_contrast > 0 && _contrast <= 1) {
+				// add contrast
+				if (_num <= _contrast / 2) {
+					return 0;
+				} else if (_num >= (1 - _contrast / 2)) {
+					return 1;
+				} else {
+					return (_num - (_contrast / 2)) * (1 / _contrast);
+				}
+			} else if (_contrast < 0 && _contrast >= -1) {
+				// remove contrast
+				_contrast *= -1;
+				return (_contrast / 2) + (_num * (1 - _contrast));
+			}
+			
+			// all other provided Numbers are worthless
+			return _num;
 		}
 		
 		public static function theme_default():void {
@@ -68,6 +96,7 @@ package  {
 			
 			use_noise       = true;
 			noise_alpha     = 0.05;
+			noise_contrast  = 0.7;
 			noise_color     = 0x0f2c44;
 		}
 		
@@ -124,6 +153,7 @@ package  {
 			
 			use_noise       = true;
 			noise_alpha     = 0.2;
+			noise_contrast  = 0;
 			noise_color     = 0x002200;
 		}
 		
@@ -164,6 +194,7 @@ package  {
 			
 			use_noise       = true;
 			noise_alpha     = 0.05;
+			noise_contrast  = 0;
 			noise_color     = 0x110000;
 		}
 	}

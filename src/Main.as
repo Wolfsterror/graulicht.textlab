@@ -531,14 +531,15 @@ package {
 		 * Redraws the noise.
 		 */
 		public function redraw_noise():void {
+			var size:int = Main.grid * 16;
 			if(Theme.use_noise) {
-				background_noisy = new BitmapData(Main.grid * 16, Main.grid * 16, true, 0x00000000);
+				background_noisy = new BitmapData(size, size, true, 0x00000000);
 				var x:int;
 				var y:int;
 				var c:uint;
-				for (y = 0; y < background_noisy.height; y++) {
-					for (x = 0; x < background_noisy.width; x++) {
-						c = ((0xff * Math.random() * Theme.noise_alpha) << 24) | Theme.noise_color;
+				for (y = 0; y < size; y++) {
+					for (x = 0; x < size; x++) {
+						c = (Math.round(0xff * (Theme.contrast(Math.random(), Theme.noise_contrast) * Theme.noise_alpha)) << 24) | Theme.noise_color;
 						background_noisy.setPixel32(x, y, c);
 					}
 				}
