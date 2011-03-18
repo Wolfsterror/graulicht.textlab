@@ -20,11 +20,11 @@ package  {
 	public class Output extends Sprite {
 		
 		public  var _connections:Array = new Array;
-		private var _value:String = new String;
 		private var _label:String = Language.words['out'];
 		private var _description:String = "generischer Ausgang";
+		public  var _type:String;
 		
-		public var _id:int;
+		public  var _id:int;
 		
 		public  var _controller:Processor;
 		private var shape:Sprite = new Sprite;
@@ -39,6 +39,8 @@ package  {
 				label = Language.words['out'];
 			}
 			_label = label;
+			
+			if (!_type) _type = 'string';
 			
 			label_format = new TextFormat;
 			label_format.font = "raffix.simple.upcase";
@@ -69,19 +71,6 @@ package  {
 			align();
 		}
 		
-		public function value(_newvalue:String = null):String {
-			var i:int;
-			if (_newvalue != null) {
-				_value = _newvalue;
-				for (i = 0; i < _connections.length; i++) {
-					var input:Input;
-					input = _connections[i].receiver;
-					input.value(_value);
-				}
-			}
-			return _value;
-		}
-		
 		public function align():void {
 			x = (_controller._width - 1) * Main.grid;
 			y = (_id + 1) * Main.grid;
@@ -94,7 +83,14 @@ package  {
 		
 		public function draw():void {
 			shape.graphics.clear();
-			shape.graphics.beginFill(Theme.main_color);
+			switch(_type) {
+				case 'list':
+					shape.graphics.beginFill(Theme.node_colors['list']);
+					break;
+				case 'string':
+				default:
+					shape.graphics.beginFill(Theme.node_colors['string']);
+			}
 			shape.graphics.drawCircle((Main.grid-1) / 2, (Main.grid-1) / 2, 5);
 			shape.graphics.endFill();
 			
@@ -130,7 +126,7 @@ package  {
 			
 			if (e.target.parent != this) {
 				var input:Input = e.target.parent as Input;
-				if(input != null) {
+				if(input != null && (input._type == _type)) {
 					if (input._connection == null) {
 						// no connection on input yet
 						input._connection = new Connection(this, input);

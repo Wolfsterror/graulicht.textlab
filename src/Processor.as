@@ -20,6 +20,9 @@ package  {
 		public var  input_labels:Array = [];
 		public var output_labels:Array = [];
 		
+		public var  input_types:Array = [];
+		public var output_types:Array = [];
+		
 		public var  input_count:int = 0;
 		public var output_count:int = 0;
 		
@@ -94,10 +97,13 @@ package  {
 			// initialize inputs
 			inputs = new Array;
 			for (i = 0; i < input_count; i++) {
-				if(input_labels[i]) {
-					inputs[i] = new Input(this, i, input_labels[i]);
-				} else {
-					inputs[i] = new Input(this, i);
+				switch(input_types[i]) {
+					case 'list':
+						inputs[i] = new ListInput(this, i, input_labels[i]?input_labels[i]:"");
+						break;
+					case 'string':
+					default:
+						inputs[i] = new StringInput(this, i, input_labels[i]?input_labels[i]:"");
 				}
 				addChild(inputs[i]);
 			}
@@ -105,10 +111,13 @@ package  {
 			// initialize outputs
 			outputs = new Array;
 			for (i = 0; i < output_count; i++) {
-				if(output_labels[i]) {
-					outputs[i] = new Output(this, i, output_labels[i]);
-				} else {
-					outputs[i] = new Output(this, i);
+				switch(output_types[i]) {
+					case 'list':
+						outputs[i] = new ListOutput(this, i, output_labels[i]?output_labels[i]:"");
+						break;
+					case 'string':
+					default:
+						outputs[i] = new StringOutput(this, i, output_labels[i]?output_labels[i]:"");
 				}
 				addChild(outputs[i]);
 			}
@@ -193,7 +202,7 @@ package  {
 			}
 		}
 		
-		public function set_output(_output:int, _value:String):void {
+		public function set_output(_output:int, _value:*):void {
 			outputs[_output].value(_value);
 		}
 		

@@ -20,7 +20,14 @@ package  {
 			var startpos:Point = sender.localToGlobal(new Point);
 			var endpos:Point = receiver.localToGlobal(new Point);
 			
-			Main.draw_connections.graphics.lineStyle(3, Theme.main_color, 1, true);
+			switch(sender._type) {
+				case 'list':
+					Main.draw_connections.graphics.lineStyle(3, Theme.node_colors['list'], 1, true);
+					break;
+				case 'string':
+				default:
+					Main.draw_connections.graphics.lineStyle(3, Theme.node_colors['string'], 1, true);
+			}
 			
 			var path:Array = Path.compute(startpos.x, startpos.y, endpos.x, endpos.y);
 			Main.draw_connections.graphics.moveTo(path[0].x + 7, path[0].y + 7);

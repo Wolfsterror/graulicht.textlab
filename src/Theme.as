@@ -19,6 +19,8 @@ package  {
 		public static var main_color:uint		= 0x3060BF;
 		public static var highlight_color:uint	= 0x5C8AE5;
 		
+		public static var node_colors:Object	=	{ 'string': 0x3060BF, 'list': 0x3060BF }
+		
 		public static var noise_color:uint		= 0x5C8AE5;
 		public static var noise_alpha:Number	= 0.07;
 		public static var noise_contrast:Number	= 0.5;
@@ -94,6 +96,8 @@ package  {
 			main_color      = 0x0f2c44;
 			highlight_color = 0xFA9B0B;
 			
+			node_colors     = { 'string': 0x0D3759, 'list': 0x0D5922 }
+			
 			use_noise       = true;
 			noise_alpha     = 0.05;
 			noise_contrast  = 0.7;
@@ -121,6 +125,8 @@ package  {
 			main_color      = 0x3060BF;	// hsv(220,  75,  75)
 			highlight_color = 0x5C8AE5;	// hsv(220,  60,  90)
 			
+			node_colors     = { 'string': 0x3060BF, 'list': 0x3060BF }
+			
 			use_noise       = false;
 		}
 		public static function theme_graulicht_paintlab():void {
@@ -131,6 +137,8 @@ package  {
 			text_color      = 0xBFBFBF;	// hsv(  0,   0,  75)
 			main_color      = 0xBF7830;	// hsv( 30,  75,  75)
 			highlight_color = 0xE5A15C;	// hsv( 30,  60,  90)
+			
+			node_colors     = { 'string': 0xBF7830, 'list': 0xBF7830 }
 			
 			use_noise       = false;
 		}
@@ -150,6 +158,8 @@ package  {
 			text_color      = 0xD2E5B8;	// hsv( 88,  10,  30)
 			main_color      = 0x98F230;	// hsv( 88,  80,  95)
 			highlight_color = 0xBF1733;	// hsv(350,  88,  75)
+			
+			node_colors     = { 'string': 0x98F230, 'list': 0x98F230 }
 			
 			use_noise       = true;
 			noise_alpha     = 0.2;
@@ -173,6 +183,8 @@ package  {
 			main_color      = 0x7F7FFF;	// hsv(240,  50, 100)
 			highlight_color = 0x0000FF;	// hsv(240, 100, 100)
 			
+			node_colors     = { 'string': 0x7F7FFF, 'list': 0x7F7FFF }
+			
 			use_noise       = false;
 		}
 		
@@ -191,6 +203,8 @@ package  {
 			text_color      = 0x52122C;
 			main_color      = 0xFF3388;
 			highlight_color = 0x3497FA;
+			
+			node_colors     = { 'string': 0xFF3388, 'list': 0xFF3388 }
 			
 			use_noise       = true;
 			noise_alpha     = 0.05;

@@ -22,16 +22,16 @@ package  {
 	public class Input extends Sprite {
 		
 		public  var _connection:Connection;
-		private var _value:String;
 		private var _label:String = Language.words['in'];
 		private var _description:String = "generischer Eingang";
+		public  var _type:String;
 		
-		public var _id:int;
+		public  var _id:int;
 		
-		public var changed:Boolean = true;
-		public var error:Boolean = false;
+		public  var changed:Boolean = true;
+		public  var error:Boolean = false;
 		
-		public var _controller:Processor;
+		public  var _controller:Processor;
 		private var shape:Sprite = new Sprite;
 		private var error_shape:Shape = new Shape;
 		
@@ -41,12 +41,13 @@ package  {
 		public function Input(controller:Processor, id:int, label:String = "") {
 			_controller = controller;
 			_connection = null;
-			_value = new String;
 			_id = id;
 			if (label == "") {
 				label = Language.words['in'];
 			}
 			_label = label;
+			
+			if (!_type) _type = 'string';
 			
 			label_format = new TextFormat;
 			label_format.font = "raffix.simple.upcase";
@@ -78,14 +79,6 @@ package  {
 			align();
 		}
 		
-		public function value(_newvalue:String = null):String {
-			if (_newvalue != null) {
-				_value = _newvalue;
-				changed = false;
-			}
-			return _value;
-		}
-		
 		public function align():void {
 			x = 0;
 			y = (_id + 1) * Main.grid;
@@ -98,7 +91,14 @@ package  {
 		
 		private function draw():void {
 			shape.graphics.clear();
-			shape.graphics.beginFill(Theme.main_color);
+			switch(_type) {
+				case 'list':
+					shape.graphics.beginFill(Theme.node_colors['list']);
+					break;
+				case 'string':
+				default:
+					shape.graphics.beginFill(Theme.node_colors['string']);
+			}
 			shape.graphics.drawCircle((Main.grid-1) / 2, (Main.grid-1) / 2, 5);
 			shape.graphics.endFill();
 			
@@ -153,6 +153,9 @@ package  {
 			}
 		}
 		
+		public function kill_value():void {
+		}
+		
 		public function kill_connection(self_only:Boolean = false):void {
 			if(_connection != null) {
 				var index:int;
@@ -170,7 +173,7 @@ package  {
 				}
 				
 				_connection = null;
-				_value = new String;
+				kill_value();
 				_controller.draw_connections();
 				
 				Main.fire();
