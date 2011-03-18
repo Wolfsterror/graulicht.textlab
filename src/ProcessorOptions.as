@@ -29,7 +29,7 @@ package  {
 			var i:int;
 			var label:Label;
 			var text:Text;
-			var input:Input;
+			var input:TextInput;
 			var checkbox:Checkbox;
 			var spinner:Spinner;
 			var seperator:Seperator;
@@ -41,7 +41,7 @@ package  {
 					case 'input':
 						_values[_options[i].name] = new String;
 						
-						input = new Input(this, _options[i].name);
+						input = new TextInput(this, _options[i].name);
 						options.push(input);
 						
 						displays[_options[i].name] = input;

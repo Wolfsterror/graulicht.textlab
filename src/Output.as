@@ -17,7 +17,7 @@ package  {
 	/**
 	 * @author Raphael Pohl
 	 */
-	public class ProcessorOutput extends Sprite {
+	public class Output extends Sprite {
 		
 		public  var _connections:Array = new Array;
 		private var _value:String = new String;
@@ -32,7 +32,7 @@ package  {
 		private var label_format:TextFormat;
 		private var label_field:TextField;
 		
-		public function ProcessorOutput(controller:Processor, id:int, label:String = "") {
+		public function Output(controller:Processor, id:int, label:String = "") {
 			_controller = controller;
 			_id = id;
 			if (label == "") {
@@ -74,7 +74,7 @@ package  {
 			if (_newvalue != null) {
 				_value = _newvalue;
 				for (i = 0; i < _connections.length; i++) {
-					var input:ProcessorInput;
+					var input:Input;
 					input = _connections[i].receiver;
 					input.value(_value);
 				}
@@ -129,7 +129,7 @@ package  {
 			this.removeEventListener(Event.ENTER_FRAME, onenterframe_listener);
 			
 			if (e.target.parent != this) {
-				var input:ProcessorInput = e.target.parent as ProcessorInput;
+				var input:Input = e.target.parent as Input;
 				if(input != null) {
 					if (input._connection == null) {
 						// no connection on input yet

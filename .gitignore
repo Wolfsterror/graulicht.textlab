@@ -1,2 +1,2 @@
-obj/textlabConfig.old
+obj/*.old
 bin/*.cache

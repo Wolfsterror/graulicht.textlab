@@ -449,8 +449,8 @@ package {
 					input_id = object.connections[i].receiver[1];
 					
 					// create instances of inputs / outputs
-					var the_output:ProcessorOutput = sender.outputs[output_id] as ProcessorOutput;
-					var the_input:ProcessorInput = receiver.inputs[input_id] as ProcessorInput;
+					var the_output:Output = sender.outputs[output_id] as Output;
+					var the_input:Input = receiver.inputs[input_id] as Input;
 					
 					// create a new connection
 					the_input._connection = new Connection(the_output, the_input);
@@ -562,7 +562,7 @@ package {
 			var e:Processor;
 			var pull:Processor;
 			var stack:Array; // the processors that have to be processed
-			var input:ProcessorInput;
+			var input:Input;
 			
 			// we pretend everything "changed"
 			for (i = 0; i < puppets.length; i++) {

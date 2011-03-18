@@ -13,7 +13,7 @@ package Options {
 	/**
 	 * @author Raphael Pohl
 	 */
-	public class Input extends MovieClip {
+	public class TextInput extends MovieClip {
 		
 		private var input_format:TextFormat;
 		private var input_field:TextField;
@@ -23,7 +23,7 @@ package Options {
 		
 		private var gutter:Shape = new Shape;
 		
-		public function Input(connector:ProcessorOptions, value:String) {
+		public function TextInput(connector:ProcessorOptions, value:String) {
 			this.addChild(gutter);
 			
 			_connector = connector;

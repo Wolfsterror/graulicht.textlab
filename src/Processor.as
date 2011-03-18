@@ -95,9 +95,9 @@ package  {
 			inputs = new Array;
 			for (i = 0; i < input_count; i++) {
 				if(input_labels[i]) {
-					inputs[i] = new ProcessorInput(this, i, input_labels[i]);
+					inputs[i] = new Input(this, i, input_labels[i]);
 				} else {
-					inputs[i] = new ProcessorInput(this, i);
+					inputs[i] = new Input(this, i);
 				}
 				addChild(inputs[i]);
 			}
@@ -106,9 +106,9 @@ package  {
 			outputs = new Array;
 			for (i = 0; i < output_count; i++) {
 				if(output_labels[i]) {
-					outputs[i] = new ProcessorOutput(this, i, output_labels[i]);
+					outputs[i] = new Output(this, i, output_labels[i]);
 				} else {
-					outputs[i] = new ProcessorOutput(this, i);
+					outputs[i] = new Output(this, i);
 				}
 				addChild(outputs[i]);
 			}

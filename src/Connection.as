@@ -6,10 +6,10 @@ package  {
 	 */
 	public class Connection {
 		
-		public var sender:ProcessorOutput;
-		public var receiver:ProcessorInput;
+		public var sender:Output;
+		public var receiver:Input;
 		
-		public function Connection(_sender:ProcessorOutput = null, _receiver:ProcessorInput = null) {
+		public function Connection(_sender:Output = null, _receiver:Input = null) {
 			sender = _sender;
 			receiver = _receiver;
 			

@@ -19,7 +19,7 @@ package  {
 	/**
 	 * @author Raphael Pohl
 	 */
-	public class ProcessorInput extends Sprite {
+	public class Input extends Sprite {
 		
 		public  var _connection:Connection;
 		private var _value:String;
@@ -38,7 +38,7 @@ package  {
 		private var label_format:TextFormat;
 		private var label_field:TextField;
 		
-		public function ProcessorInput(controller:Processor, id:int, label:String = "") {
+		public function Input(controller:Processor, id:int, label:String = "") {
 			_controller = controller;
 			_connection = null;
 			_value = new String;
