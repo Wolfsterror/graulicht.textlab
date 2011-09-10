@@ -15,7 +15,7 @@ package Processors {
 			
 			_options = [
 				{ type: "label", text: Language.words['seed'] },
-				{ name: "seed", type: "spinner", "min": 1, "max": 1000 }
+				{ name: "seed", type: "spinner", "min": 1, "max": 99999, "value": Math.floor(1+Math.random()*99999) }
 			];
 			
 			_width = 8;
@@ -32,8 +32,8 @@ package Processors {
 			var text1:String = inputs[0].value();
 			var text2:String = inputs[1].value();
 			
-			var output1:String = '';
-			var output2:String = '';
+			var output1:String = new String;
+			var output2:String = new String;
 
 			var r:Rndm = new Rndm(values['seed']);
 			for(var i:int = 0; i < Math.max(text1.length, text2.length); i++) {

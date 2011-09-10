@@ -24,9 +24,9 @@ package  {
 			
 			add_group(Language.words['base'],		[Source, Trace]);
 			add_group(Language.words['decorative'],	[Comment, X]);
-			add_group(Language.words['simple'],		[Minuscules, Majuscules, Reverse, Shift, Marquee]);
+			add_group(Language.words['simple'],		[Minuscules, Majuscules, Capitalizer, Reverse, Shift, Marquee]);
 			add_group(Language.words['tools'],		[Counter, Repeat, Append, Cross, Void, Space]);
-			add_group(Language.words['complex'],	[Join, Jumper, CharReplace, WordReplace]);
+			add_group(Language.words['complex'],	[Join, Jumper, Picker, CharReplace, WordReplace]);
 			add_group(Language.words['list_tools'],	[Cutter, Glue, ListReverse]);
 			add_group(Language.words['toys'],		[Tweet]);
 			
