@@ -130,7 +130,7 @@ package  {
 				button_shape.graphics.drawRect(border, Main.grid + border, Main.grid - 1, Main.grid - 1);
 				button_shape.graphics.endFill();
 
-				last_type = 'string';
+				last_type = 'string'; // default (if it is not set it must be a string: fallback)
 				button_shape.graphics.beginFill(Theme.node_colors[last_type]);
 				for (i = 0; i < reference.input_count; i++) {
 					if(reference.input_types[i] != last_type && reference.input_types[i]) {
@@ -148,7 +148,7 @@ package  {
 				button_shape.graphics.drawRect(Main.grid * (_width-1) + border, Main.grid + border, Main.grid - 1, Main.grid - 1);
 				button_shape.graphics.endFill();
 
-				last_type = 'string';
+				last_type = 'string'; // default (if it is not set it must be a string: fallback)
 				button_shape.graphics.beginFill(Theme.node_colors[last_type]);
 				for (i = 0; i < reference.output_count; i++) {
 					if(reference.output_types[i] != last_type && reference.output_types[i]) {
