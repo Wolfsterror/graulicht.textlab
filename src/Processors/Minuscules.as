@@ -1,28 +1,31 @@
 package Processors {
+
 	/**
+	 * sometimes, you need everything in the lower case. it even has a fix for a special german case. isn't that great?
+	 *
 	 * @author Raphael Pohl
 	 */
 	public class Minuscules extends Processor {
-		
+
 		public function Minuscules() {
 			input_count = 1;
 			output_count = 1;
-			
+
 			_width = 6;
 			_name = Language.words['minuscules'];
 			_preview = "text";
-			
+
 			initialize();
 		}
-		
+
 		override public function process():void {
 			// special cases (German language)
 			var needle:String = "ẞ";
 			var replacement:String = "ß";
-			
+
 			var lowcase:String = inputs[0].value();
 			lowcase = lowcase.toLowerCase();
-			
+
 			var myvalue:String = new String;
 			var i:int;
 			var c:int;
@@ -34,7 +37,7 @@ package Processors {
 					myvalue += lowcase.charAt(c);
 				}
 			}
-			
+
 			this.set_output(0, myvalue);
 		}
 	}

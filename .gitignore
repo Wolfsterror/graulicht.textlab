@@ -1,3 +1,4 @@
 obj/*.old
+bin/*.swf
 bin/*.cache
 .DS_Store

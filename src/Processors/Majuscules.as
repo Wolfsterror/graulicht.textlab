@@ -1,28 +1,31 @@
 package Processors {
+
 	/**
+	 * SET IT ALL ON FIRE! LET IT BURN AND FEEL THE HEAT!
+	 *
 	 * @author Raphael Pohl
 	 */
 	public class Majuscules extends Processor {
-		
+
 		public function Majuscules() {
 			input_count = 1;
 			output_count = 1;
-			
+
 			_width = 6;
 			_name = Language.words['majuscules'];
 			_preview = "TEXT";
-			
+
 			initialize();
 		}
-		
+
 		override public function process():void {
 			// special cases (German language)
 			var needle:String = "ß";
 			var replacement:String = "ẞ";
-			
+
 			var upcase:String = inputs[0].value();
 			upcase = upcase.toUpperCase();
-			
+
 			var myvalue:String = new String;
 			var i:int;
 			var c:int;
@@ -34,7 +37,7 @@ package Processors {
 					myvalue += upcase.charAt(c);
 				}
 			}
-			
+
 			this.set_output(0, myvalue);
 		}
 	}

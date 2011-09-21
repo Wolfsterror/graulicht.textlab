@@ -1,87 +1,88 @@
 /**
- * 
+ *
  * ----------------------------------------------------------------------------
- * 
+ *
  *                    eisfuchsLabor / graulicht / textlab
  *                     http://eisfuchslabor.de/graulicht/
- * 
+ *
  *                    developed and (c) 2011 by Raphael Pohl
- * 
+ *
  * ----------------------------------------------------------------------------
- * 
+ *
  *            THIS PROJECT USES THIRD-PARTY PACKAGES AND PROJECTS.
- * 
+ *
  * ----------------------------------------------------------------------------
- * 
+ *
  * mikechambers / as3corelib
- * 
+ *
  * An ActionScript 3 Library that contains a number of classes and utilities
  * for working with ActionScript? 3. These include classes for MD5 and SHA 1
  * hashing, Image encoders, and JSON serialization as well as general String,
  * Number and Date APIs.
- * 
+ *
  * Code is released under a BSD License:
  * http://www.opensource.org/licenses/bsd-license.php
- * 
+ *
  * Copyright (c) 2008, Adobe Systems Incorporated
  * All rights reserved.
- * 
- * 
- * 
+ *
+ *
+ *
  * danro / tweenman-as3
- * 
+ *
  * TweenMan AS3 tweening library for Flash & Flex
- * 
+ *
  * TweenMan requires fl.motion.Color, which comes compiled in the TweenMan swc.
- * 
+ *
  * For updates and examples, visit: http://www.tweenman.com
  * Author: Dan Rogers - dan@danro.net
- * 
+ *
  * ----------------------------------------------------------------------------
- * 
+ *
  */
 
 package {
+
 	import flash.display.BitmapData;
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	
+
 	import flash.geom.Point;
-	
+
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 
 	import Social.Userbar;
-	
+
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
-	
+
 	import Dialogs.*;
 	import Processors.*;
-	
+
 	import com.adobe.serialization.json.*;
 
 	/**
-	 * 
+	 *
 	 *   Main Class
-	 * 
+	 *
 	 * Creates interface and embeds font sources.
 	 * It handles selection, the main events and redrawing.
-	 * 
+	 *
 	 * @author Raphael Pohl
-	 * 
+	 *
 	 */
 	[Frame(factoryClass="Preloader")]
 	public class Main extends Sprite {
-		
+
 		public static const animation_duration:Number = 0.25;	// how long (seconds) the animations should last
 		public static const grid:int = 16;						// this aligns everything
-		
+
 		// use these for social features
 		public static const project_name:String = "textlab";
 		public static const social_home:String = "profiles/";
-		
+
 		public static var master:Main;							// "master of puppets", reference to Main (_root workaround)
 																// TODO: is this really a nice way?
 		public static var depot:Depot;							// reference to processor menu
@@ -89,12 +90,12 @@ package {
 		public static var curtain:Curtain;						// reference to curtain for dialogs (makes everythin unclickable)
 		public static var puppets:Array = new Array;			// array with all processor references on stage
 		public static var counter:int = 0;						// unique counter to identify processors (this will come in handy for hash generation)
-		
+
 		public static var connections:Array = new Array;		// array with all connection references
 		public static var draw_connections:Shape = new Shape;	// shape on that all connections are drawn
-		
+
 		private var _dragstart:Point = new Point;				// helper for drag-and-drop (where the mouse started to drag)
-		
+
 		/**
 		 * The font files in this archive were created using Fontstruct the free, online font-building tool.
 		 * These fonts were created by Raphael Pohl.
@@ -105,64 +106,64 @@ package {
 		[Embed(source = 'assets/fonts/raffix_simple_regular.ttf', embedAsCFF = "false", fontFamily = 'raffix.simple.regular')] private static const FONT_RAFFIX_SIMPLE_REGULAR: Class;
 		[Embed(source = 'assets/fonts/raffix_simple_upcase.ttf', embedAsCFF = "false", fontFamily = 'raffix.simple.upcase')] private static const FONT_RAFFIX_SIMPLE_UPCASE: Class;
 		[Embed(source = 'assets/fonts/eiszfuchs_simple_regular.ttf', embedAsCFF = "false", fontFamily = 'eiszfuchs.simple.regular')] private static const FONT_EISZFUCHS_SIMPLE_REGULAR: Class;
-		
+
 		public var background_noisy:BitmapData; // it's the noisy bitmap that will be repeated
-		
+
 		// wait for the content to be loaded
 		public function Main():void {
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 		}
-		
+
 		// everything's fine, now DO IT!
 		private function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
+
 			// ==>> ENTRY POINT <<==
-			
+
 			Language.set(); // initialize words
-			
+
 			// überclass _root :)
 			master = this;
-			
+
 			redraw_noise();
-			
+
 			// when resizing the stage, everything should be organized.
 			stage.addEventListener(Event.RESIZE, resize_listener);
 			// when dragging on stage, it should be a selection.
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mousedown_listener);
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseup_listener);
-			
+
 			// listen for keyboard shortcuts
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keydown_listener);
-			
+
 			addChild(draw_connections);
-			
+
 			// create menu or else the user cannot do anything
 			depot = new Depot;
 			addChild(depot);
-			
+
 			// create the bar for user-specific content, such as presets or avatar
 			userbar = new Userbar;
 			addChild(userbar);
-			
+
 			// create the curtain that prevents clicking on anything but dialogs
 			curtain = new Curtain;
 			addChild(curtain);
-			
+
 			// resize everything once for beauty
 			resize_listener();
-			
+
 			// create welcome message
 			var puppet:Processor = new Comment;
 			puppet.options.set_value("comment", Language.words['welcome']);
 			addChild(puppet);
 			puppet.align();
 		}
-		
+
 		/**
 		 * Handle the KEYDOWN event.
-		 * 
+		 *
 		 * @param	e	The event that was fired
 		 */
 		private function keydown_listener(e:KeyboardEvent):void {
@@ -193,12 +194,12 @@ package {
 				}
 			}
 		}
-		
+
 		/**
 		 * Handle the MOUSEDOWN event.
 		 * It basically stores the position where the mouse started dragging
 		 * and registers a new ENTER_FRAME listener
-		 * 
+		 *
 		 * @param	e	The event that was fired
 		 */
 		private function mousedown_listener(e:Event):void {
@@ -212,31 +213,31 @@ package {
 		/**
 		 * Handle the MOUSEUP event.
 		 * Removes the ENTER_FRAME listener and selects processors if any
-		 * 
+		 *
 		 * @param	e	The event that was fired
 		 */
 		private function mouseup_listener(e:Event):void {
 			this.removeEventListener(Event.ENTER_FRAME, onenterframe_listener); // remove that, that is useless now
 			resize_listener(); // redraw stage (and background)
-			
+
 			if (e.target != this) {
 				// BUG: when here IS NO return, then importing a machine will not select the new processors.
 				return;
 				// BUG: when here IS return, then releasing above a processor will not work.
-				
+
 				// we keep the release for now until we find a solution. selecting new processors is important
 			}
-			
+
 			// initialize positions
 			var x1:int = _dragstart.x;
 			var y1:int = _dragstart.y;
 			var x2:int = this.mouseX - x1;
 			var y2:int = this.mouseY - y1;
-			
+
 			// point objects for rectangle and intersection test
 			var topleft:Point = new Point(Math.min(x1, x2 + x1), Math.min(y1, y2 + y1));
 			var bottomright:Point = new Point(Math.max(x1, x2 + x1), Math.max(y1, y2 + y1));
-			
+
 			var i:int;
 			var puppet:Processor;
 			for (i = 0; i < puppets.length; i++) {
@@ -250,14 +251,14 @@ package {
 				}
 			}
 		}
-		
+
 		/**
 		 * Clears the selection of processors
 		 */
 		private function deselect_all():void {
 			select_all(false);
 		}
-		
+
 		/**
 		 * Selects all processors on stage
 		 */
@@ -273,85 +274,85 @@ package {
 				}
 			}
 		}
-		
+
 		/**
 		 * Is active when mouse is down and on pressed on stage.
 		 * It draws the selection rectangle for visual feedback
 		 */
 		private function onenterframe_listener(e:Event):void {
 			resize_listener(); // clear stage and refresh
-			
+
 			this.graphics.lineStyle(2, Theme.highlight_color);
 			this.graphics.beginFill(Theme.front_color);
 			this.graphics.drawRect(_dragstart.x, _dragstart.y, (this.mouseX - _dragstart.x), (this.mouseY - _dragstart.y));
 			this.graphics.endFill();
 		}
-		
+
 		/**
 		 * Sets the depth index of any child that it is displayed on top of all children
-		 * 
+		 *
 		 * @param	_controller	The child that is supposed to be in front of everything
 		 */
 		public function bring_front(_controller:*):void {
 			setChildIndex(_controller, this.numChildren - 1);
 			// BOOM
 		}
-		
+
 		/**
 		 * Is called when the window is resized.
 		 * Use this to reset dimensions and positions
-		 * 
+		 *
 		 * @param	e	The event that is fired, is null if this is no callback of an listener
 		 */
 		private function resize_listener(e:Event = null):void {
 			// clear stage and redraw THE COLOURS
 			this.graphics.clear();
 			this.graphics.lineStyle();
-			
+
 			this.graphics.beginFill(Theme.canvas_color);
 			this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
-			
+
 			if(Theme.use_noise) {
 				// here comes the noise!
 				this.graphics.beginBitmapFill(background_noisy);
 				this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			}
-			
+
 			this.graphics.endFill();
-			
+
 			// resize the curtain for dialogs
 			curtain.resize();
-			
+
 			// resize everything else that matters
 			depot.resize();
 			userbar.resize();
-			
+
 			// BUG: Processors will remain outside stage when resizing has finished
 		}
-		
+
 		/**
 		 * Gets all processors by selection and stores them in an array
-		 * 
+		 *
 		 * @return list of all selected processors
 		 */
 		public static function get_selected():Array {
 			var i:int;
 			var puppet:Processor;
 			var selection:Array = new Array;
-			
+
 			for (i = 0; i < puppets.length; i++) {
 				puppet = puppets[i];
 				if (puppet.selected) {
 					selection.push(puppet);
 				}
 			}
-			
+
 			return selection;
 		}
-		
+
 		/**
 		 * Reads out any JSON-encoded string and regenerates the processors and connections
-		 * 
+		 *
 		 * @param	_json	JSON-encoded string
 		 * @return			whether the function was successful
 		 */
@@ -360,7 +361,7 @@ package {
 				// _json is a filename, load first
 				var file_loader:URLLoader = new URLLoader();
 				file_loader.addEventListener(Event.COMPLETE, onFileLoaded);
-				
+
 				function onFileLoaded(e:Event):void {
 					Main.load(e.target.data, false);
 				}
@@ -372,18 +373,18 @@ package {
 				} catch (e:JSONParseError) {
 					// MEGA FAIL
 					return false;
-				} 
+				}
 				// TODO: check whether the provided object is a saved machine
-				
+
 				var mind:Object = new Object; // stores references to processors by their hash according to JSON object
-				
+
 				var i:int; // puppet
 				var o:*; // option
-				
+
 				Main.master.deselect_all(); // we will select all new processors
-				
+
 				// processor creation
-				
+
 				var puppet:Processor;
 				for (i = 0; i < object.processors.length; i++) {
 					// look for processor type and create new instance according to it
@@ -406,20 +407,20 @@ package {
 						case 'Tweet':			puppet = new Tweet;			break;
 						case 'Void':			puppet = new Void;			break;
 						case 'X':				puppet = new X;				break;
-						
+
 						case 'Replace':			puppet = new CharReplace;	break; // backwards-compatibility
-						
+
 						// TODO: what to do when there is an unknown type?
 						default:				puppet = null;
 					}
-					
+
 					if (puppet) {
 						// if puppet is an instance
-						
+
 						// set position of new puppet accourding to JSON object
 						puppet.x = object.processors[i].x;
 						puppet.y = object.processors[i].y;
-						
+
 						for (o in object.processors[i].options) {
 							// set options (checkboxes, etc)
 							puppet.options.set_value(o, object.processors[i].options[o]);
@@ -431,93 +432,93 @@ package {
 						puppet.select();
 					}
 				}
-				
+
 				// now for the connections
-				
+
 				var sender:Processor;
 				var output_id:int;
 				var receiver:Processor;
 				var input_id:int;
-				
+
 				for (i = 0; i < object.connections.length; i++) {
 					// go through defined connections
-					
+
 					// get sender and receiver
 					sender = mind[object.connections[i].sender[0]];
 					receiver = mind[object.connections[i].receiver[0]];
 					output_id = object.connections[i].sender[1];
 					input_id = object.connections[i].receiver[1];
-					
+
 					// create instances of inputs / outputs
 					var the_output:Output = sender.outputs[output_id] as Output;
 					var the_input:Input = receiver.inputs[input_id] as Input;
-					
+
 					// create a new connection
 					the_input._connection = new Connection(the_output, the_input);
 					the_output._connections.push(the_input._connection);
-					
+
 					sender.draw_connections(); // draw connection
 				}
 				return true;
 			}
 			return true;
 		}
-		
+
 		/**
 		 * Reads out all processors/connections and generates an objects
-		 * 
+		 *
 		 * @return	object with all relevant information
 		 */
 		public static function export():Object {
 			var i:int;
 			var puppet:Processor;
 			var connection:Connection;
-			
+
 			var export:Object = new Object; // fresh object as storage
-			
+
 			export["processors"] = new Array;
 			for (i = 0; i < puppets.length; i++) {
 				puppet = puppets[i];
 				if(puppet.parent) {
 					var puppet_object:Object = new Object;
-					
+
 					puppet_object.x = puppet.x;
 					puppet_object.y = puppet.y;
 					puppet_object.id = puppet._identifier;
-					
+
 					puppet_object.type = ((puppet.toString()).substring(8)).replace(']', '');
 					puppet_object.options = puppet.options.get_values();
-					
+
 					export.processors.push(puppet_object);
 				}
 			}
 			export["connections"] = new Array;
 			for (i = 0; i < connections.length; i++) {
 				connection = connections[i];
-				
+
 				var connection_object:Object = new Object;
-				
+
 				connection_object.sender = [connection.sender._controller._identifier, connection.sender._id];
 				connection_object.receiver = [connection.receiver._controller._identifier, connection.receiver._id];
-				
+
 				export.connections.push(connection_object);
 			}
-			
+
 			return export;
 		}
-		
+
 		/**
 		 * Redraws all objects master knows of.
 		 * This is usually called when changing themes.
 		 */
 		public static function redraw():void {
 			Main.master.redraw_noise();
-			
+
 			Main.master.resize_listener();
 			depot.redraw();
 			curtain.redraw();
 			userbar.redraw();
-			
+
 			var i:int;
 			var puppet:Processor;
 			for (i = 0; i < puppets.length; i++) {
@@ -526,7 +527,7 @@ package {
 			}
 			puppet.draw_connections();
 		}
-		
+
 		/**
 		 * Redraws the noise.
 		 */
@@ -545,25 +546,25 @@ package {
 				}
 			}
 		}
-		
+
 		/**
 		 * The Heart of the whole project.
 		 * It traces the way back from every processor that has no output to every processor that has no input.
-		 * 
+		 *
 		 * fire() is a port of the function that was created in textlab v1 by Raphael Pohl
-		 * 
+		 *
 		 * @author Raphael Pohl
 		 * @version 1.0.1
 		 */
 		public static function fire():void {
 			var i:int;
 			var t:int;
-			
+
 			var e:Processor;
 			var pull:Processor;
 			var stack:Array; // the processors that have to be processed
 			var input:Input;
-			
+
 			// we pretend everything "changed"
 			for (i = 0; i < puppets.length; i++) {
 				pull = puppets[i];
@@ -575,19 +576,19 @@ package {
 					}
 				}
 			}
-			
+
 			for (i = 0; i < puppets.length; i++) {
 				if (puppets[i].output_count > 0)
 					continue;
-				
+
 				pull = puppets[i];
-				
+
 				// initialize stack
 				stack = new Array;
 				stack.push(pull);
-				
+
 				var error:Boolean = false;
-				
+
 				while (stack.length > 0 && !error) {
 					var current:Processor = stack[stack.length - 1];
 					if (current.input_count > 0) {
