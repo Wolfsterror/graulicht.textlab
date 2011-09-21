@@ -159,7 +159,7 @@ package  {
 			main_color      = 0x98F230;	// hsv( 88,  80,  95)
 			highlight_color = 0xBF1733;	// hsv(350,  88,  75)
 			
-			node_colors     = { 'string': 0x98F230, 'list': 0x98F230 }
+			node_colors     = { 'string': 0x98F230, 'list': 0x30d5f2 }
 			
 			use_noise       = true;
 			noise_alpha     = 0.2;
