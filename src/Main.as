@@ -388,24 +388,32 @@ package {
 				var puppet:Processor;
 				for (i = 0; i < object.processors.length; i++) {
 					// look for processor type and create new instance according to it
+					// DONT FORGET TO UPDATE THIS OR REPLACE IT WITH A LOGIC THAT MAKES THIS WAY COOLER
 					switch(object.processors[i].type) {
 						case 'Append':			puppet = new Append;		break;
+						case 'Capitalizer':		puppet = new Capitalizer;	break;
+						case 'CharReplace':		puppet = new CharReplace;	break;
 						case 'Comment':			puppet = new Comment;		break;
 						case 'Counter':			puppet = new Counter;		break;
 						case 'Cross':			puppet = new Cross;			break;
+						case 'Cutter':			puppet = new Cutter;		break;
+						case 'Glue':			puppet = new Glue;			break;
 						case 'Join':			puppet = new Join;			break;
+						case 'Jumper':			puppet = new Jumper;		break;
+						case 'ListReverse':		puppet = new ListReverse;	break;
 						case 'Majuscules':		puppet = new Majuscules;	break;
 						case 'Marquee':			puppet = new Marquee;		break;
 						case 'Minuscules':		puppet = new Minuscules;	break;
+						case 'Picker':			puppet = new Picker;		break;
 						case 'Repeat':			puppet = new Repeat;		break;
-						case 'CharReplace':		puppet = new CharReplace;	break;
-						case 'WordReplace':		puppet = new WordReplace;	break;
 						case 'Reverse':			puppet = new Reverse;		break;
 						case 'Shift': 			puppet = new Shift;			break;
 						case 'Source':			puppet = new Source;		break;
+						case 'Space':			puppet = new Space;			break;
 						case 'Trace':			puppet = new Trace;			break;
 						case 'Tweet':			puppet = new Tweet;			break;
 						case 'Void':			puppet = new Void;			break;
+						case 'WordReplace':		puppet = new WordReplace;	break;
 						case 'X':				puppet = new X;				break;
 
 						case 'Replace':			puppet = new CharReplace;	break; // backwards-compatibility
